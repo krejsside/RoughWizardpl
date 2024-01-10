@@ -1,93 +1,177 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoughWizard</title>
+
+    <!-- Dodaj ikonę w lewy górny róg -->
+    <link rel="icon" href="wizard.ico" type="image/x-icon">
+
     <style>
+        /* Animacja dla aktywnej zakładki w pasku nawigacyjnym */
+        @keyframes fadeInOut {
+            from {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         body {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
+            background-color: #000;
+            /* Kolor tła strony na czarny */
+            color: #fff;
+            /* Kolor tekstu na biały */
         }
 
         header {
-            background-color: #333; /* Kolor tÅa nagÅÃ³wka */
-            color: #fff; /* Kolor tekstu nagÅÃ³wka */
+            background-color: #333;
+            color: #fff;
             padding: 10px;
             text-align: center;
         }
 
         nav {
-            background-color: #555; /* Kolor tÅa paska nawigacyjnego */
+            background-color: #555;
             overflow: hidden;
+            text-align: center;
+            /* Wyśrodkowanie opcji w pasku nawigacyjnym */
         }
 
         nav a {
-            float: left;
-            display: block;
-            color: #fff; /* Kolor tekstu linkÃ³w nawigacyjnych */
+            display: inline-block;
+            color: #fff;
             text-align: center;
             padding: 14px 16px;
             text-decoration: none;
+            background-color: #800080;
+            /* Kolor przycisków nawigacyjnych na fioletowy */
+            border-radius: 4px;
+            margin-right: 5px;
+            transition: background-color 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
         }
 
-        nav a:hover {
-            background-color: #777; /* Kolor tÅa linkÃ³w nawigacyjnych po najechaniu myszkÄ */
+        nav a:hover,
+        nav a.active {
+            background-color: #555;
+            animation: fadeInOut 0.3s ease;
         }
 
         section {
             padding: 20px;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+            animation: fadeInOut 0.5s ease;
+        }
+
+        /* Ukryj nieaktywne zakładki */
+        section:not(.active) {
+            opacity: 0;
+            transform: scale(0.9);
+            display: none;
         }
 
         section h2 {
-            color: #333;
+            color: #800080;
+            /* Kolor tytułów na fioletowy */
+            margin-top: 0;
+            /* Usuń domyślne marginesy dla h2 */
         }
 
         section p {
-            color: #555;
+            color: #999;
+            /* Kolor tekstu na szary */
             margin-bottom: 10px;
         }
 
-        form {
+        /* Panel logowania i rejestracji */
+        .panel {
             max-width: 400px;
             margin: 0 auto;
-            background-color: #eee;
+            background-color: #333;
+            /* Kolor tła panelu na ciemny szary */
             padding: 20px;
             border-radius: 8px;
         }
 
-        form label {
+        .panel label {
             display: block;
             margin-bottom: 8px;
+            color: #fff;
+            /* Kolor etykiet na biały */
         }
 
-        form input {
+        .panel input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 12px;
             box-sizing: border-box;
+            background-color: #555;
+            /* Kolor tła pola na ciemny szary */
+            border: none;
+            color: #fff;
         }
 
-        form button {
-            background-color: #333;
+        .panel button {
+            background-color: #800080;
+            /* Kolor przycisku na fioletowy */
             color: #fff;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            width: 100%;
+            /* Rozciągnij przycisk na pełną szerokość formularza */
         }
 
-        form button:hover {
+        .panel button:hover {
             background-color: #555;
         }
 
         .zakladka {
-            display: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* Flexbox dla wyśrodkowania zawartości */
+            flex-direction: column;
         }
 
-        .zakladka.active {
-            display: block;
+        .zakladka img {
+            width: 50%;
+            /* Dostosuj szerokość obrazu według potrzeb */
+            height: auto;
+            /* Auto dopasowanie wysokości */
+            margin-left: 20px;
+        }
+
+        .opis {
+            color: #999;
+            /* Kolor tekstu na szary */
+            max-width: 50%;
+            text-align: left;
+        }
+
+        .pricingOption {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #800080;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .pricingOption:hover {
+            background-color: #555;
         }
     </style>
 
@@ -105,6 +189,7 @@
         }
     </script>
 </head>
+
 <body>
 
     <header>
@@ -112,55 +197,68 @@
     </header>
 
     <nav>
-        <a href="#" onclick="pokazZakladke('changeLogi')">Strona główna</a>
-        <a href="#" onclick="pokazZakladke('sklep')">Sklep</a>
-        <a href="#" onclick="pokazZakladke('konto')">Konto</a>
+        <a href="#" onclick="pokazZakladke('stronaGlowna')" class="active">Strona główna</a>
+        <a href="#" onclick="pokazZakladke('optymalizacje')">Optymalizacje</a>
+        <a href="#" onclick="pokazZakladke('terminy')">Terminy</a>
+        <a href="#" onclick="pokazZakladke('pricing')">Pricing</a>
     </nav>
 
-    <section id="changeLogi" class="zakladka active">
-        <h2>Change Logi</h2>
+    <section id="stronaGlowna" class="zakladka active">
+        <h2>Strona główna</h2>
         <p>Tutaj znajdziesz najnowsze informacje o zmianach w RoughWizard.</p>
         <ul>
-            <li>Update 2 - 08.01.24: Poprawki w działaniu i optymalizacji strony.</li>
-            <!-- Dodaj wiÄcej wpisÃ³w w Change Logach, jeÅli to konieczne -->
+            <!-- Dodaj więcej wpisów w Change Logach, jeśli to konieczne -->
         </ul>
     </section>
 
-    <section id="sklep" class="zakladka">
-        <!-- ZawartoÅÄ sekcji Sklep -->
-        <h2>Sklep</h2>
-        <p>Tutaj znajdziesz produkty dostępne w naszym sklepie.</p>
-    </section>
-
-    <section id="konto" class="zakladka">
-        <div id="logowanie">
-            <h2>Logowanie</h2>
-            <form action="#" method="post">
-                <label for="login">Login:</label>
-                <input type="text" id="login" name="login" required>
-
-                <label for="haslo">Hasło:</label>
-                <input type="password" id="haslo" name="haslo" required>
-
-                <button type="submit">Zaloguj się</button>
-            </form>
-
-            <p>Nie masz konta? <a href="#rejestracja" onclick="pokazRejestracje()">Zarejestruj się</a></p>
-        </div>
-
-        <div id="rejestracja" class="zakladka">
-            <h2>Rejestracja</h2>
-            <form action="#" method="post">
-                <!-- Nie ma pola "Login" w formularzu rejestracji -->
-                <label for="mail">Adres e-mail:</label>
-                <input type="email" id="mail" name="mail" required>
-
-                <label for="hasloRej">Hasło:</label>
-                <input type="password" id="hasloRej" name="hasloRej" required>
-
-                <button type="submit">Zarejestruj się</button>
-            </form>
+    <section id="optymalizacje" class="zakladka">
+        <!-- Zawartość sekcji Optymalizacje -->
+        <h2>Optymalizacje</h2>
+        <div class="zakladka">
+            <p class="opis">Szybka Optymalizacja: RoughWizard oferuje szybki i skuteczny proces optymalizacji komputera.</p>
+            <p class="opis">Zarządzanie Autostartem: Skróć czas uruchamiania systemu, decydując, które programy powinny automatycznie uruchamiać się przy starcie komputera.</p>
+            <p class="opis">Dlaczego RoughWizard?: Poprawa Wydajności: Zyskaj pełną kontrolę nad wydajnością swojego komputera.</p>
+            <p class="opis">Automatyzacja: Oszczędź czas dzięki automatycznym procesom optymalizacyjnym.</p>
+            <img src="C:/strona/menu.jpg" alt="Optymalizacja">
         </div>
     </section>
+
+    <section id="terminy" class="zakladka">
+        <!-- Zawartość sekcji Terminy -->
+        <h2>Terminy</h2>
+        <p>Terminy do rezerwacji od 11.01.24 do 20.01.24:</p>
+        <ul>
+            <li>11.01.24 FREE</li>
+            <li>12.01.24 FREE</li>
+            <li>13.01.24 FREE</li>
+            <li>14.01.24 FREE</li>
+            <li>15.01.24 FREE</li>
+            <li>16.01.24 FREE</li>
+            <li>17.01.24 FREE</li>
+            <li>18.01.24 FREE</li>
+            <li>19.01.24 FREE</li>
+            <li>20.01.24 FREE</li>
+        </ul>
+        <button onclick="window.location.href='https://discord.gg/EcYWcp2P2A'">Zarezerwuj</button>
+    </section>
+
+    <section id="pricing" class="zakladka">
+        <!-- Zawartość sekcji Pricing -->
+        <h2>RoughWizardPrice</h2>
+        <div class="zakladka">
+            <p class="opis"></p>
+            <div class="pricingOption" onclick="window.location.href='https://discord.gg/EcYWcp2P2A'">
+                <strong>All Windows Tweak Low Ping Delay KBM (ticket) </strong>
+                <p>Kosztuje: 5 zł</p>
+            </div>
+            <div class="pricingOption" onclick="window.location.href='https://discord.gg/EcYWcp2P2A'">
+                <strong>Minimal Windows Tweak (ticket)</strong>
+                <p>Za darmo!</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="konto.js"></script>
 </body>
+
 </html>
