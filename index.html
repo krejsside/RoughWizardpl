@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoughWizard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background-color: #333; /* Kolor tÅa nagÅÃ³wka */
+            color: #fff; /* Kolor tekstu nagÅÃ³wka */
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #555; /* Kolor tÅa paska nawigacyjnego */
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #fff; /* Kolor tekstu linkÃ³w nawigacyjnych */
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #777; /* Kolor tÅa linkÃ³w nawigacyjnych po najechaniu myszkÄ */
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        section h2 {
+            color: #333;
+        }
+
+        section p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #eee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        .zakladka {
+            display: none;
+        }
+
+        .zakladka.active {
+            display: block;
+        }
+    </style>
+
+    <script>
+        function pokazZakladke(nazwaZakladki) {
+            var zakladki = document.getElementsByClassName("zakladka");
+            for (var i = 0; i < zakladki.length; i++) {
+                zakladki[i].classList.remove("active");
+            }
+            document.getElementById(nazwaZakladki).classList.add("active");
+        }
+
+        function pokazRejestracje() {
+            pokazZakladke('rejestracja');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>RoughWizard</h1>
+    </header>
+
+    <nav>
+        <a href="#" onclick="pokazZakladke('changeLogi')">Strona główna</a>
+        <a href="#" onclick="pokazZakladke('sklep')">Sklep</a>
+        <a href="#" onclick="pokazZakladke('konto')">Konto</a>
+    </nav>
+
+    <section id="changeLogi" class="zakladka active">
+        <h2>Change Logi</h2>
+        <p>Tutaj znajdziesz najnowsze informacje o zmianach w RoughWizard.</p>
+        <ul>
+            <li>Update 2 - 08.01.24: Poprawki w działaniu i optymalizacji strony.</li>
+            <!-- Dodaj wiÄcej wpisÃ³w w Change Logach, jeÅli to konieczne -->
+        </ul>
+    </section>
+
+    <section id="sklep" class="zakladka">
+        <!-- ZawartoÅÄ sekcji Sklep -->
+        <h2>Sklep</h2>
+        <p>Tutaj znajdziesz produkty dostępne w naszym sklepie.</p>
+    </section>
+
+    <section id="konto" class="zakladka">
+        <div id="logowanie">
+            <h2>Logowanie</h2>
+            <form action="#" method="post">
+                <label for="login">Login:</label>
+                <input type="text" id="login" name="login" required>
+
+                <label for="haslo">Hasło:</label>
+                <input type="password" id="haslo" name="haslo" required>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+
+            <p>Nie masz konta? <a href="#rejestracja" onclick="pokazRejestracje()">Zarejestruj się</a></p>
+        </div>
+
+        <div id="rejestracja" class="zakladka">
+            <h2>Rejestracja</h2>
+            <form action="#" method="post">
+                <!-- Nie ma pola "Login" w formularzu rejestracji -->
+                <label for="mail">Adres e-mail:</label>
+                <input type="email" id="mail" name="mail" required>
+
+                <label for="hasloRej">Hasło:</label>
+                <input type="password" id="hasloRej" name="hasloRej" required>
+
+                <button type="submit">Zarejestruj się</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
