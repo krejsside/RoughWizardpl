@@ -145,14 +145,6 @@
             flex-direction: column;
         }
 
-        .zakladka img {
-            width: 50%;
-            /* Dostosuj szerokość obrazu według potrzeb */
-            height: auto;
-            /* Auto dopasowanie wysokości */
-            margin-left: 20px;
-        }
-
         .opis {
             color: #999;
             /* Kolor tekstu na szary */
@@ -173,6 +165,30 @@
         .pricingOption:hover {
             background-color: #555;
         }
+
+        .opcjePlatnosci {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .opcjaPlatnosci {
+            text-align: center;
+            margin: 10px;
+            padding: 15px;
+            background-color: #800080;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .opcjaPlatnosci:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
     </style>
 
     <script>
@@ -186,6 +202,12 @@
 
         function pokazRejestracje() {
             pokazZakladke('rejestracja');
+        }
+
+        function wybierzOpcjePlatnosci(opcja) {
+            // Tutaj możesz dodać obsługę wybranej opcji płatności
+            console.log("Wybrano opcję płatności: " + opcja);
+            window.location.href = 'https://discord.gg/EcYWcp2P2A';
         }
     </script>
 </head>
@@ -201,6 +223,7 @@
         <a href="#" onclick="pokazZakladke('optymalizacje')">Optymalizacje</a>
         <a href="#" onclick="pokazZakladke('terminy')">Terminy</a>
         <a href="#" onclick="pokazZakladke('pricing')">Pricing</a>
+        <a href="#" onclick="pokazZakladke('opcjePlatnosci')">Opcje płatności</a>
     </nav>
 
     <section id="stronaGlowna" class="zakladka active">
@@ -219,7 +242,6 @@
             <p class="opis">Zarządzanie Autostartem: Skróć czas uruchamiania systemu, decydując, które programy powinny automatycznie uruchamiać się przy starcie komputera.</p>
             <p class="opis">Dlaczego RoughWizard?: Poprawa Wydajności: Zyskaj pełną kontrolę nad wydajnością swojego komputera.</p>
             <p class="opis">Automatyzacja: Oszczędź czas dzięki automatycznym procesom optymalizacyjnym.</p>
-            <img src="C:/strona/menu.jpg" alt="Optymalizacja">
         </div>
     </section>
 
@@ -247,13 +269,32 @@
         <h2>RoughWizardPrice</h2>
         <div class="zakladka">
             <p class="opis"></p>
-            <div class="pricingOption" onclick="window.location.href='https://discord.gg/EcYWcp2P2A'">
+            <div class="pricingOption" onclick="wybierzOpcjePlatnosci('allWindowsTweak')">
                 <strong>All Windows Tweak Low Ping Delay KBM (ticket) </strong>
                 <p>Kosztuje: 5 zł</p>
             </div>
-            <div class="pricingOption" onclick="window.location.href='https://discord.gg/EcYWcp2P2A'">
+            <div class="pricingOption" onclick="wybierzOpcjePlatnosci('minimalWindowsTweak')">
                 <strong>Minimal Windows Tweak (ticket)</strong>
                 <p>Za darmo!</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="opcjePlatnosci" class="zakladka">
+        <!-- Zawartość sekcji Opcje płatności -->
+        <h2>Opcje płatności</h2>
+        <div class="opcjePlatnosci">
+            <div class="opcjaPlatnosci" onclick="wybierzOpcjePlatnosci('paysafecard')">
+                <strong>PaySafeCard</strong>
+                <p>Only Ticket</p>
+            </div>
+            <div class="opcjaPlatnosci" onclick="wybierzOpcjePlatnosci('paypal')">
+                <strong>PayPal</strong>
+                <p>Only ticket</p>
+            </div>
+            <div class="opcjaPlatnosci" onclick="wybierzOpcjePlatnosci('blik')">
+                <strong>Blik</strong>
+                <p>Only Ticket</p>
             </div>
         </div>
     </section>
